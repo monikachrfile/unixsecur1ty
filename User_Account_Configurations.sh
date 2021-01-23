@@ -120,7 +120,7 @@ do
 done
 clear
 
-echo Type user account names of users you want to add, with a space in between
+echo "Type user account names of users you want to add, with a space in between"
 echo "If you have no one new to add just press enter."
 read -a usersNew
 
