@@ -363,6 +363,9 @@ then
 elif [ $httpYN == yes ]
 then
 	apt-get install apache2 -y -qq
+	apt-get install apache2-utils -y -qq
+	apt-get install libapache2-mod-security2 -y -qq
+	apt-get install libapache2-mod-evasive
 	systemctl enable apache2
 	ufw allow http 
 	ufw allow https
