@@ -5,7 +5,7 @@ These Linux/Ubuntu Security Scripts are seperated in the case that the image get
 competitor can easily see what went wrong and fix it.
 
 I would you to go reccommened in the following order if you are using all of them:
-Read README
+Read README  
 Do Forensic Questions
 Harden_Defensive_Countermeasures.sh
 
