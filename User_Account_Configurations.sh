@@ -40,6 +40,7 @@ printTime()
 	fi
 }
 
+mkdir ~/Desktop/Logs/
 touch ~/Desktop/Logs/User_Account_Conf.log
 #echo > ~/Desktop/Script.log
 chmod 777 ~/Desktop/Logs/User_Account_Conf.log
