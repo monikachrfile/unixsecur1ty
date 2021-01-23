@@ -117,7 +117,7 @@ sec_tool()
         clear
         echo "Installing The Following Tools (NEEDED)..."
         sleep 0.5s
-        sudo apt-get install chkrootkit clamav rkhunter apparmor apparmor-profiles apparmor-profiles-extra apparmor-notify lynis nmap git fail2ban modsecurity-crs fakeroot fakeroot-ng debsecan unattended-upgrades aide arpwatch logwatch -y -qq
+        sudo apt-get install chkrootkit clamav rkhunter apparmor apparmor-profiles apparmor-profiles-extra apparmor-notify lynis nmap git fail2ban modsecurity-crs fakeroot fakeroot-ng debsecan unattended-upgrades aide arpwatch logwatch clamav-freshclam -y -qq
         git clone https://github.com/vulnersCom/nmap-vulners.git
         clear
         while [ $loop == 1 ]; do
@@ -137,7 +137,7 @@ sec_tool()
                         clear
                         echo "This Program will scan the whole Linux Operating System for vulnerabilities."
                         echo "So Please most attention to anything with a 'WARNING' tag on."
-                        sleep 8s
+                        sleep 7s
                         lynis audit system
                         #sudo lynis audit system
                 elif [ $tool_input == 2 ]
@@ -145,10 +145,22 @@ sec_tool()
                         nmap_menu
                 elif [ $tool_input == 3 ]
                 then
-
+			rkhunter --update
+			rkhunter --propupd
+			rkhunter --check
+			echo ""
+			echo -e "Press Enter to go Back to the Menu."
+			read wait3
                 elif [ $tool_input == 4 ]
                 then
-                        
+                        service ClamAV-freshclam start
+			systemctl start clamav-freshclam
+			systemctl start ClamAV-freshclam
+			freshclam -v
+			echo ""
+			echo -e "Press Enter to go Back to the Menu."
+			read wait3
+			
                 elif [ $tool_input == 5 ]
                 then
                         sudo apparmor_status
