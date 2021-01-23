@@ -113,8 +113,8 @@ do
 			echo -e "Cyberpatriot!11\nCyberpatriot!11" | passwd ${users[${i}]}
 			printTime "${users[${i}]} has been given the password 'Cyberpatriot!11'."
 		fi
-		passwd -x90 -n30 -w7 ${users[${i}]}
-		usermod -L ${users[${i}]}
+		#passwd -x90 -n30 -w7 ${users[${i}]}
+		#usermod -L ${users[${i}]}
 		printTime "${users[${i}]}'s password has been given a maximum age of 30 days, minimum of 3 days, and warning of 7 days. ${users[${i}]}'s account has been locked."
 	fi
 done
