@@ -15,7 +15,7 @@ read warning1
 clear
 echo "WARNING: Make sure you have solved your forensic questions!! As Script Modification May Ruin Forensic Question Answers."
 echo -n Are you ready??
-echo (Enter Anything)
+echo "Enter Anything"
 read warning2
 startTime=$(date +"%s")
 printTime()
