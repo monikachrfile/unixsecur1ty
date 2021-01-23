@@ -34,7 +34,7 @@ printTime()
 }
 
 mkdir ~/Desktop/Logs/
-mkdir ~/Desktop/Backups/
+mkdir ~/Desktop/backups/
 touch ~/Desktop/Logs/Manage_Services.log
 echo > ~/Desktop/Logs/Manage_Services.log
 chmod 777 ~/Desktop/Logs/Manage_Services.log
@@ -113,15 +113,16 @@ then
 	fi
 	sed -i 's/usershare allow guests = no/usershare allow guests = yes/g' /etc/samba/smb.conf
 	
-	echo "Type all user account names allowed to use Samba, with a space in between."
-	echo -e "If not specified, then put all authorized users from machine."
-	read -a usersSMB
-	usersSMBLength=${#usersSMB[@]}	
-	for (( i=0;i<$usersSMBLength;i++))
-	do
-		echo -e 'Moodle!22\nMoodle!22' | smbpasswd -a ${usersSMB[${i}]}
-		printTime "${usersSMB[${i}]} has been given the password 'Moodle!22' for Samba."
-	done
+	#echo "Type all user account names allowed to use Samba, with a space in between."
+	#echo -e "If not specified, then put all authorized users from machine."
+	#read -a usersSMB
+	#usersSMBLength=${#usersSMB[@]}	
+	#for (( i=0;i<$usersSMBLength;i++))
+	#do
+	#	echo "ignore this"
+		#echo -e 'Cyberpatriot!11\nCyberpatriot!11' | smbpasswd -a ${usersSMB[${i}]}
+		#printTime "${usersSMB[${i}]} has been given the password 'Moodle!22' for Samba."
+	#done
 	printTime "netbios-ns, netbios-dgm, netbios-ssn, and microsoft-ds ports have been allowed. Samba config file has been configured."
 	echo -e "netbios-ns, netbios-dgm, netbios-ssn, and microsoft-ds ports have been allowed. Samba config file has been configured."
 	sleep 3s
