@@ -203,7 +203,7 @@ clear
 apt-get purge vnc4server -y -qq
 apt-get purge vncsnapshot -y -qq
 apt-get purge vtgrab -y -qq
-apt-get purge remmina-plugin-vnc
+apt-get purge remmina-plugin-vnc -y -qq
 apt-get purge tigervnc -y -qq
 apt-get purge tightvncserver -y -qq
 apt-get purge x11vnc -y -qq
@@ -222,6 +222,35 @@ apt-get purge snmp -y -qq
 printTime "SNMP has been removed."
 echo -e "SNMP has been removed."
 sleep 2s
+
+clear
+apt-get purge nikto -y -qq
+printTime "Nikto has been removed."
+echo -e "Nikto has been removed."
+sleep 1s
+
+clear
+apt-get purge medusa -y -qq
+apt-get purge hashcat -y -qq
+apt-get purge acccheck -y -qq
+apt-get purge arp-scan -y -qq
+apt-get purge braa -y -qq
+apt-get purge dnsrecon -y -qq
+apt-get purge dnstracer -y -qq
+apt-get purge metasploit-framework -y -qq
+apt-get purge cryptocat -y -qq
+apt-get purge w3af -y -qq
+apt-get purge w3af-console -y -qq
+apt-get purge corkscrew -y -qq
+apt-get purge netrw -y -qq
+apt-get purge dns2tcp -y -qq
+apt-get purge httptunnel -y -qq
+apt-get purge patator -y -qq
+apt-get purge polenum -y -qq
+apt-get purge cmospwd -y -qq
+printTime "More Hacking Tools Removed."
+echo -e "More Hacking Tools Removed."
+sleep 1s
 
 clear
 apt-get purge nexuiz -y -qq
