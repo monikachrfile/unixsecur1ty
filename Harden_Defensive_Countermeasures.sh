@@ -70,15 +70,23 @@ nmap_menu()
                 echo ""
                 echo -e "[1] Normal Open-Port/Services Scanner"
                 echo -e "[2] Intensive Vulnerability Scanner"
+		echo -e "[3] Go Back to Previous Menu"
                 read nmap_input
                 if [ $nmap_input == 1 ]
                 then
                         clear
                         nmap -sV 127.0.0.1
+			echo -e "Press Enter to contine."
+			read wait
                 elif [ $nmap_input == 2 ]
                 then
                         clear
                         nmap --script nmap-vulners -sV 127.0.0.1
+			echo -e "Press Enter to Continue."
+			read wait
+		elif [ $nmap_input == 3]
+		then
+			break
                 else 
                         echo You Chose the Wrong Option.
                         sleep 1s
@@ -104,6 +112,8 @@ debsecan()
                 elif [ $debsecan_input == 2 ]
                 then
                         debsecan
+			echo -e "Press Enter to contine."
+			read wait
                 elif [ $debsecan_input == 3 ]
                 then
                         break
@@ -137,7 +147,8 @@ sec_tool()
                         clear
                         echo "This Program will scan the whole Linux Operating System for vulnerabilities."
                         echo "So Please most attention to anything with a 'WARNING' tag on."
-                        sleep 7s
+			echo "Scan Will Commence in 6 Seconds..."
+                        sleep 6s
                         lynis audit system
                         #sudo lynis audit system
                 elif [ $tool_input == 2 ]
