@@ -148,14 +148,14 @@ do
 	
 	echo "Configuring login.defs..."
 	echo "Is it recommended to put the following for password policies in login.defs:"
-	echo "PASSMAX   30"
-	echo "PASSMIN   7"
+	echo "PASSMAX   90"
+	echo "PASSMIN   10"
 	echo "PASSWARN  14"
 	echo "are you ready to configure login.defs?"
 	read wait
 	sudo nano /etc/login.defs
 
-	#passwd -x30 -n7 -w14 ${usersNew[${i}]}
+	passwd -x90 -n10 -w14 ${usersNew[${i}]}
 	#usermod -L ${usersNew[${i}]}
 	printTime "${usersNew[${i}]}'s password has been given a maximum age of 30 days, minimum of 7 days, and warning of 14 days. ${users[${i}]}'s account has been locked."
 	echo -e "${usersNew[${i}]}'s password has been given a maximum age of 30 days, minimum of 7 days, and warning of 14 days. ${users[${i}]}'s account has been locked."
@@ -172,4 +172,6 @@ done
 	printTime "Lightdm has been configured and guest has bene disabled."
 	echo -e "Lightdm has been configured and guest has bene disabled."
 #lightdm
+
+sudo apt install members -y
 

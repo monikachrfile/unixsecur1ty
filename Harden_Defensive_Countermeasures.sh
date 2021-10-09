@@ -190,11 +190,10 @@ firewall_conf()
 {
         clear
         apt-get install gufw -y -qq
+        apt-get install ufw -y -qq
         clear
         ufw logging on
         ufw logging high
-        ufw deny 23
-        ufw deny 110
 	ufw deny 111
 	ufw deny 515
         ufw deny 1234
