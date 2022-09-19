@@ -5,22 +5,22 @@ These Linux/Ubuntu Security Scripts are seperated in the case that the image get
 competitor can easily see what went wrong and fix it.
 
 I would you to go reccommened in the following order if you are using all of them:
-Read README  
-Do Forensic Questions
-Harden_Defensive_Countermeasures.sh
+<p>Read README</p>  
+<p>Do Forensic Questions</p>
+<p>Harden_Defensive_Countermeasures.sh</p>
 
 However, in the end you can use them in whichever order you want.
-Just make sure the scripts don't interfere with the Forensic Questions!!
+<p>Just make sure the scripts don't interfere with the Forensic Questions!!<p>
 
 Enjoy, and Good Luck Future Nationalist!
 
 Intructions to how to run scripts:
-chmod +x <script_name>    -Will give execution permissions
-./<script_name>		  -Will execute script
+<p>chmod +x <script_name>    -Will give execution permissions</p>
+<p>./<script_name>		  -Will execute script</p>
 
 Example:
-chmod +x main.sh
-./main.sh
+<p>chmod +x main.sh</p>
+<p>./main.sh</p>
 
 
 Extra Notes:
