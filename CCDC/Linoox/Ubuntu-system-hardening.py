@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 import os
-from pickletools import optimize
-from turtle import update
+#from pickletools import optimize
+#from turtle import update
 
 os = os.system
 op = os.popen
