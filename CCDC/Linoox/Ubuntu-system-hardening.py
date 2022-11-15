@@ -4,10 +4,10 @@ from pickletools import optimize
 from turtle import update
 
 os = os.system
-o = os.popen
+op = os.popen
 cls = os("clear")
 
-root_checker = os.popen("./root_checker.sh").read().split('\n')
+root_checker = op("./root_checker.sh").read().split('\n')
 if (str(root_checker[0]) == "Error"):
     print("Error\nScript Must Be Run As Root")
     os("exit")
@@ -35,7 +35,7 @@ def libpam_cracklib():
 
 def pamd_scan():
     cls
-    c = o("grep 'minlen=' /etc/pam.d/common-password").read().split('\n')
+    c = op("grep 'minlen=' /etc/pam.d/common-password").read().split('\n')
 
     if ("minlen=8" in str(c[0])):
         print("Minimum Password Length is: 8.")
@@ -46,7 +46,7 @@ def pamd_scan():
     else:
         print("[!] Minimum Password Length is Lower Than 8!")
     
-    c = o("grep 'pam.cracklib' /etc/pam.d/common-password").read().split('\n')
+    c = op("grep 'pam.cracklib' /etc/pam.d/common-password").read().split('\n')
 
     if ("ucredit=-1" not in str(c[0])):
         print("[!] Misconfigured Password Complexity.")
@@ -62,7 +62,7 @@ def pamd_scan():
                 else:
                     print("Properly Configured Password Complexity.")
     
-    c = o("grep 'remember=5' /etc/pam.d/common-password").read().split('\n')
+    c = op("grep 'remember=5' /etc/pam.d/common-password").read().split('\n')
 
     if ("remember=5" in str(c[0])):
         print("Password History is: 5")
@@ -79,7 +79,7 @@ def pamd_scan():
     else:
         print("[!] Password History is Lower Than 5")
     
-    c = o("grep -R 'sha512' /etc/pam.d/common-password").read().split('\n')
+    c = op("grep -R 'sha512' /etc/pam.d/common-password").read().split('\n')
     if ("sha512" in str(c[1])):
         print("SHA512 Encryption Algorithm is Used")
     else:
@@ -191,7 +191,7 @@ while True:
     elif option == "3":
         pamd_scan()
     elif option == "4":
-        update_firefox
+        update_firefox()
     elif option == "5":
         firewall()
     elif option == "6":
