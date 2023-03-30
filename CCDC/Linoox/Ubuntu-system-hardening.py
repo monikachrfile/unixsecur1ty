@@ -5,7 +5,7 @@ import os
 
 o = os.system
 op = os.popen
-cls = os("clear")
+cls = o("clear")
 
 root_checker = op("./root_checker.sh").read().split('\n')
 if (str(root_checker[0]) == "Error"):
