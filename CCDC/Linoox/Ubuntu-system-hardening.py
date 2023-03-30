@@ -10,7 +10,7 @@ cls = os("clear")
 root_checker = op("./root_checker.sh").read().split('\n')
 if (str(root_checker[0]) == "Error"):
     print("Error\nScript Must Be Run As Root")
-    os("exit")
+    o("exit")
 
 def backups():
     cls
@@ -130,7 +130,7 @@ def vuln_scan():
 
     ports = input("Enter ports: ")
 
-    os("nmap --script vulners.nse -A -sV 127.0.0.1 -p {}".format(ports))
+    o("nmap --script vulners.nse -A -sV 127.0.0.1 -p {}".format(ports))
     input("Continue: ")
     o("lynis audit system | tee lynis_scan.txt")
     o("rkhunter --propupd")
