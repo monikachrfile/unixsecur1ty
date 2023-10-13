@@ -8,8 +8,8 @@ o = os.system
 op = os.popen
 cls = o("clear")
 
-o("chmod +x external_scripts/root_checker.sh")
-o("chmod +x external_scripts/get_users.sh")
+o("chmod +x external_scripts/*")
+o("chmod +x get_users.sh")
 
 root_checker = op("bash external_scripts/root_checker.sh").read().split('\n')
 if (str(root_checker[0]) == "Error"):
