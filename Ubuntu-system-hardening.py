@@ -130,6 +130,7 @@ def user_auditing():
     # Get the list of user accounts from /etc/passwd
     #o("eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1 | tee users")
     o("bash get_users.sh")
+    cls
     with open('external_files/users', 'r') as passwd_file:
         users = passwd_file.read().split()
 
