@@ -8,9 +8,9 @@ o = os.system
 op = os.popen
 cls = o("clear")
 
-o("chmod +x /external_scripts/root_checker.sh")
+o("chmod +x external_scripts/root_checker.sh")
 
-root_checker = op("bash external_script/root_checker.sh").read().split('\n')
+root_checker = op("bash external_scripts/root_checker.sh").read().split('\n')
 if (str(root_checker[0]) == "Error"):
     print("Error\nScript Must Be Run As Root")
     o("exit")
