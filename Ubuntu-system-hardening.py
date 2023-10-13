@@ -13,7 +13,7 @@ o("chmod +x external_scripts/root_checker.sh")
 root_checker = op("bash external_scripts/root_checker.sh").read().split('\n')
 if (str(root_checker[0]) == "Error"):
     print("Error\nScript Must Be Run As Root")
-    o("exit")
+    exit()
 
 # Function to print messages with timestamps
 def printTime(message):
