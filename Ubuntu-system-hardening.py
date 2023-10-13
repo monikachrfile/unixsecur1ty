@@ -9,11 +9,14 @@ op = os.popen
 cls = o("clear")
 
 o("chmod +x external_scripts/root_checker.sh")
+o("chmod +x external_scripts/get_users.sh")
 
 root_checker = op("bash external_scripts/root_checker.sh").read().split('\n')
 if (str(root_checker[0]) == "Error"):
     print("Error\nScript Must Be Run As Root")
     exit()
+
+input("BEFORE STARTING. HAVE A SECOND TERMINAL LOGGED INTO ROOT IN CASE STUFF GETS BROKEN\nPress Enter Once Complete")
 
 # Function to print messages with timestamps
 def printTime(message):
@@ -45,7 +48,7 @@ def backups():
     o("cp -r /etc/sudoers.d/ backups/")
     o("cp /etc/login.defs backups/")
     o("cp -ar /etc/lightdm/ backups/")
-    printTime("Backups Are Finished & Stored in backups/.")
+    printTime("Backups Are Finished & Stored in backups/.\n")
     
 
 #TO DO, HARDEST. MANUAL OR AUTO??
@@ -126,7 +129,7 @@ def print_time(message):
 def user_auditing():
     # Get the list of user accounts from /etc/passwd
     #o("eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1 | tee users")
-    o("bash external_scripts/get_users.sh")
+    o("bash get_users.sh")
     with open('external_files/users', 'r') as passwd_file:
         users = passwd_file.read().split()
 
@@ -137,7 +140,7 @@ def user_auditing():
             if yn3 == "yes":
                 print("Please Type in a Password: ")
                 o("passwd {}".format(user))
-                print_time("{} has been given the password.".format(user))
+                printTime("{} has been given the password.".format(user))
                 break
             if yn3 == "no":
                 print("Continuing without changing password for {}...".format(user))
@@ -151,7 +154,7 @@ def user_auditing():
             yn1 = input("Delete {} | yes or no: ".format(user))
             if yn1 == "yes":
                 o("userdel -r {}".format(user))
-                #print_time("{} has been deleted.".format(user))
+                printTime("{} has been deleted.".format(user))
                 break
             if yn1 == "no":
                 while True:
@@ -164,7 +167,7 @@ def user_auditing():
                         print_time("{} has been made an administrator.".format(user))
                         change_pass()
                         o("passwd -x90 -n5 -w7 {}".format(user))
-                        print_time("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days. {}'s account has been locked.".format(user,user))
+                        printTime("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days. {}'s account has been locked.".format(user,user))
                         break
                     if yn2 == "no":
                         o("gpasswd -d {} sudo".format(user))
@@ -172,10 +175,10 @@ def user_auditing():
                         o("gpasswd -d {} lpadmin".format(user))
                         o("gpasswd -d {} sambashare".format(user))
                         o("gpasswd -d {} root".format(user))
-                        print_time("{} has been made a standard user.".format(user))
+                        printTime("{} has been made a standard user.".format(user))
                         change_pass()
                         o("passwd -x90 -n5 -w7 {}".format(user))
-                        print_time("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days. {}'s account has been locked.".format(user,user))
+                        printTime("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days. {}'s account has been locked.".format(user,user))
                         break
                     else:
                         print("Error, only choose yes or no")
@@ -193,16 +196,16 @@ def user_auditing():
         os.system("clear")
         while True:
             o("adduser {}".format(user_new))
-            print_time("A user account for {} has been created.".format(user_new))
+            printTime("A user account for {} has been created.".format(user_new))
             yn_new = input("Make {} administrator? yes or no: ".format(user_new))
             if yn_new == "yes":
                 o("gpasswd -a {} sudo".format(user_new))
                 o("gpasswd -a {} adm".format(user_new))
                 o("gpasswd -a {} lpadmin".format(user_new))
                 o("gpasswd -a {} sambashare".format(user_new))
-                print_time("{} has been made an administrator.".format(user_new))
+                printTime("{} has been made an administrator.".format(user_new))
             if yn_new == "no":
-                print_time("{} has been made a standard user.".format(user_new))
+                printTime("{} has been made a standard user.".format(user_new))
             
             else:
                 print("Error. Only choose yes or no!")
@@ -214,12 +217,12 @@ def user_auditing():
 
 def updates():
     cls
-    #Operating System Updates
+    printTime("Operating System Updates")
     o("apt update")
     o("apt upgrade -y")
     o("apt dist-upgrade -y")
     o("apt autoremove -y")
-    #Firefox Update
+    printTime("Firefox Update")
     o("add-apt-repository ppa:ubuntu-mozilla-security/ppa")
     o("apt update")
     o("apt-get install firefox -y")
@@ -325,6 +328,12 @@ def remove_malware():
     cls
     o("rkhunter --update")
     o("rkhunter --check")
+
+    service_input = input("Do you have a web server as a critical service?")
+    if service_input == "yes":
+        o("git clone https://github.com/tinwaninja/Simple-Backdoor-Scanner-PHP.git")
+        o("cp Simple-Backoor-Scanner-PHP/scanner.php /var/www/html/")
+        o("firefox --new-window 127.0.0.1")
 
 def uncatorigized():
     cls
