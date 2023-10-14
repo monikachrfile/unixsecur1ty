@@ -61,7 +61,6 @@ def account_policies():
     #Installing Libpam modules
     o("apt update")
     o("apt install libpam-cracklib libcrack2 -y")
-    printTime("Automatic Account Policies Deployed.")
     print("""
     Get Ready to edit /etc/login.defs to the following:
     PASS_MAX_DAYS  90
@@ -73,6 +72,8 @@ def account_policies():
     o("echo 'auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800' >> /etc/pam.d/common-auth")
     o("sed -i 's/\(pam_unix\.so.*\)$/\1 remember=5 minlen=8/' /etc/pam.d/common-password")
     o("sed -i 's/\(pam_cracklib\.so.*\)$/\1 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1/' /etc/pam.d/common-password")
+    printTime("Account Policies Deployed.")
+
 
 def pamd_scan():
     cls
@@ -228,12 +229,12 @@ def updates():
     o("apt upgrade -y")
     o("apt dist-upgrade -y")
     o("apt autoremove -y")
-    printTime("Operating System Updates")
+    printTime("Operating System Updated")
     input("Close Firefox To Apply Updates. Press Enter to Continue: ")
     o("add-apt-repository ppa:ubuntu-mozilla-security/ppa")
     o("apt update")
     o("apt-get install firefox -y")
-    printTime("Firefox Update")
+    printTime("Firefox Updated")
 
 def defensive_countermeasures():
     cls
@@ -284,6 +285,7 @@ def logging_auditing():
     o("cp external_files/audit.rules /etc/auditd/rules.d/")
     o("auditctl -e 1")
     o("systemctl start auditd")
+    printTime("Auditd has been installed, running, and configured")
 
 def service_mangement():
     cls
@@ -340,29 +342,36 @@ def remove_malware():
     cls
     o("rkhunter --update")
     o("rkhunter --check")
+    o("lynis audit system")
+    o("grep bash /etc/passwd")
+    print("Are there any unauthorized users with a shell?")
+    input("Press Enter to open /etc/passwd to fix any bad shells")
+    o("nano /etc/passwd")
+    print("check your /etc/sudoers and /etc/hosts file for bad stuff")
 
     service_input = input("Do you have a web server as a critical service?")
     if service_input == "yes":
         o("git clone https://github.com/tinwaninja/Simple-Backdoor-Scanner-PHP.git")
         o("cp Simple-Backoor-Scanner-PHP/scanner.php /var/www/html/")
         o("firefox --new-window http://127.0.0.1/scanner.php")
+    printTime("Malware has been somewhat scanned")
 
 def uncatorigized():
     cls
-    print("Removing All User Crontabs: ")
+    printTime("Removing All User Crontabs: ")
     o("rm /var/spool/cron/crontabs/*")
     #Restricted cron access to root
     o("echo 'root' > /etc/cron.allow")
     o("echo 'root' > /etc/at.allow")
     o("chmod 644 /etc/cron.allow")
     o("chmod 644 /etc/at.allow")
-    print("Remove alias commands")
+    printTime("Remove alias commands")
     o("unalias -a")
     o("echo 'unalias -a' >> ~/.bashrc")
     o("echo 'unalias -a' >> /root/.bashrc")
     print("Disable USB's")
     o("echo 'install usb-storage /bin/true' >> /etc/modprobe.d/disable-usb-storage.conf")
-    #Disabled thunderbolt and firewire access
+    printTime("Disabled thunderbolt and firewire access")
     o("echo 'blacklist firewire-core' >> /etc/modprobe.d/firewire.conf")
     o("echo 'blacklist thunderbolt' >> /etc/modprobe.d/thunderbolt.conf")
 def root_pass():
