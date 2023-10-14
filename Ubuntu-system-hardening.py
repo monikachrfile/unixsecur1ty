@@ -8,6 +8,7 @@ o = os.system
 op = os.popen
 cls = o("clear")
 
+o("chmod -R +x external_scripts/")
 o("chmod +x external_scripts/*")
 o("chmod +x get_users.sh")
 
