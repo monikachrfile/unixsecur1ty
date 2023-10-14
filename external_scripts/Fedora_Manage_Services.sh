@@ -71,11 +71,11 @@ read FirefoxYN
 echo Does this machine allow media files [yes/no]?
 read mediaFilesYN
 
-clear
-apt-get update -y  
-sleep 1s
+
+clear 
+#sleep 1s
 # "Sources.list has been Updated."
-echo -e "Sources.list has been Updated."
+dnf install ufw
 sleep 1s
 clear
 
@@ -86,10 +86,10 @@ then
 	ufw deny netbios-dgm
 	ufw deny netbios-ssn
 	ufw deny microsoft-ds
-	apt-get purge samba -y  
-	apt-get purge samba-common -y   
-	apt-get purge samba-common-bin -y  
-	apt-get purge samba4 -y  
+	dnf remove samba -y  
+	dnf remove samba-common -y   
+	dnf remove samba-common-bin -y  
+	dnf remove samba4 -y  
 	clear
 	# "netbios-ns, netbios-dgm, netbios-ssn, and microsoft-ds ports have been denied. Samba has been removed."
 	echo -e "netbios-ns, netbios-dgm, netbios-ssn, and microsoft-ds ports have been denied. Samba has been removed."
@@ -101,9 +101,9 @@ then
 	ufw allow netbios-ssn
 	ufw allow microsoft-ds
 	cp /etc/samba/smb.conf backups/services/
-	apt-get install samba-common -y  
-	apt-get install samba -y  
-	apt-get install system-config-samba -y  
+	dnf install samba-common -y  
+	dnf install samba -y  
+	dnf install system-config-samba -y  
 	#if [ "$(grep '####### Authentication #######' /etc/samba/smb.conf)"==0 ]
 	#then
 	#	sed -i 's/####### Authentication #######/####### Authentication #######\nsecurity = user/g' /etc/samba/smb.conf
@@ -141,17 +141,16 @@ then
 	ufw deny saft 
 	ufw deny ftps-data 
 	ufw deny ftps
-	apt-get purge ftpd -y  
-	apt-get purge ftp -y  
-	apt-get purge pure-ftpd -y  
-	apt-get purge pure-ftpd-common pure-ftpd-mysql -y  
-	apt-get purge proftpd-basic -y  
-	apt-get purge proftpd -y  
-	apt-get purge vsftpd -y  
-	apt-get purge pure-ftp -y  
-	apt-get purge gftp gftp-common -y  
+	dnf remove ftpd -y  
+	dnf remove ftp -y  
+	dnf remove pure-ftpd -y  
+	dnf remove pure-ftpd-common pure-ftpd-mysql -y  
+	dnf remove proftpd-basic -y  
+	dnf remove proftpd -y  
+	dnf remove vsftpd -y  
+	dnf remove pure-ftp -y  
+	dnf remove gftp gftp-common -y  
 
-	apt-get autoremove -y
 	# "vsFTPd has been removed. ftp, sftp, saft, ftps-data, and ftps ports have been denied on the firewall."
 elif [ $ftpYN == yes ]
 then
@@ -160,8 +159,8 @@ then
 	ufw allow saft 
 	ufw allow ftps-data 
 	ufw allow ftps
-	apt-get install ftp -y  
-	apt-get install ftpd-ssl -y  
+	dnf install ftp -y  
+	dnf install ftpd-ssl -y  
 	cp -ar /etc/vsftpd/* backups/services/
 	#cp /etc/vsftpd.conf backups/services/
 	#gedit /etc/vsftpd/vsftpd.conf & gedit /etc/vsftpd.conf
@@ -177,12 +176,12 @@ clear
 if [ $sshYN == no ]
 then
 	ufw deny ssh
-	apt-get purge openssh-server -y
-	#apt-get purge openssh-client -y  
+	dnf remove openssh-server -y
+	#dnf remove openssh-client -y  
 	# "SSH port has been denied on the firewall. Open-SSH has been removed."
 elif [ $sshYN == yes ]
 then
-	apt-get install openssh-server -y 
+	dnf install openssh-server -y 
 	ufw allow ssh
 	cp /etc/ssh/sshd_config backups/services/
 	#echo Type all user account names allowed to use SSH, with a space in between
@@ -205,10 +204,10 @@ then
 	ufw deny telnet 
 	ufw deny rtelnet 
 	ufw deny telnets
-	apt-get purge telnet -y  
-	apt-get purge telnetd -y  
-	apt-get purge inetutils-telnetd -y  
-	apt-get purge telnetd-ssl -y  
+	dnf remove telnet -y  
+	dnf remove telnetd -y  
+	dnf remove inetutils-telnetd -y  
+	dnf remove telnetd-ssl -y  
 	# "Telnet port has been denied on the firewall and Telnet has been removed."
 elif [ $telnetYN == yes ]
 then
@@ -226,10 +225,10 @@ fi
 clear
 if [ $mailYN == no ]
 then
-	apt-get purge postfix -y  
-	apt-get purge sendmail -y  
-	apt-get purge pop3 -y  
-	apt-get purge qmail -y  
+	dnf remove postfix -y  
+	dnf remove sendmail -y  
+	dnf remove pop3 -y  
+	dnf remove qmail -y  
 	ufw deny 25
 	ufw deny smtp 
 	ufw deny pop2 
@@ -240,8 +239,8 @@ then
 	# "smtp, pop2, pop3, imap2, imaps, and pop3s ports have been denied on the firewall. Postfix, Sendmail, Pop3, Qmail has been Removed."
 elif [ $mailYN == yes ]
 then
-	apt-get install pop3 -y  
-	apt-get install sendmail -y  
+	dnf install pop3 -y  
+	dnf install sendmail -y  
 	ufw allow smtp 
 	ufw allow pop2 
 	ufw allow pop3
@@ -262,7 +261,7 @@ then
 	ufw deny ipp 
 	ufw deny printer 
 	ufw deny cups
-	apt-get purge cups dovecot-core dovecot-antispam dovecot-dbg dovecot-dev dovecot-gssapi dovecot-imapd dovecot-ldap dovecot-lmtpd dovecot-lucene dovecot-sqlite dovecot-solr dovecot-managesieved dovecot-mysql dovecot-pgsql dovecot-pop3d dovecot-sieve -y
+	dnf remove cups dovecot-core dovecot-antispam dovecot-dbg dovecot-dev dovecot-gssapi dovecot-imapd dovecot-ldap dovecot-lmtpd dovecot-lucene dovecot-sqlite dovecot-solr dovecot-managesieved dovecot-mysql dovecot-pgsql dovecot-pop3d dovecot-sieve -y
 	systemctl stop cups.service
 	systemctl stop cups.socket
 	systemctl stop cups-browsed.service
@@ -275,8 +274,7 @@ then
 	ufw allow ipp 
 	ufw allow printer 
 	ufw allow cups
-	apt-get install cups
-	apt-get 
+	dnf install cups
 	# "ipp, printer, and cups ports have been allowed on the firewall."
 else
 	echo Response not recognized.
@@ -292,21 +290,21 @@ then
 	ufw deny ms-sql-m 
 	ufw deny mysql 
 	ufw deny mysql-proxy
-	apt-get purge postgresql -y  
-	apt-get purge sqlcipher -y  
-	apt-get purge mysql mariadb -y 
-	apt-get purge mysql-client-core-5.5 -y  
-	apt-get purge mysql-client-core-5.6 -y  
-	apt-get purge mysql-common-5.5 -y  
-	apt-get purge mysql-common-5.6 -y  
-	apt-get purge mysql-server -y  
-	apt-get purge mysql-server-5.5 -y  
-	apt-get purge mysql-server-5.6 -y  
-	apt-get purge mysql-server-5.7 -y  
-	apt-get purge mysql-client-5.5 -y  
-	apt-get purge mysql-client-5.6 -y  
-	apt-get purge mysql-client-5.7 -y  
-	apt-get purge mysql-server-core-5.6 -y  
+	dnf remove postgresql -y  
+	dnf remove sqlcipher -y  
+	dnf remove mysql mariadb -y 
+	dnf remove mysql-client-core-5.5 -y  
+	dnf remove mysql-client-core-5.6 -y  
+	dnf remove mysql-common-5.5 -y  
+	dnf remove mysql-common-5.6 -y  
+	dnf remove mysql-server -y  
+	dnf remove mysql-server-5.5 -y  
+	dnf remove mysql-server-5.6 -y  
+	dnf remove mysql-server-5.7 -y  
+	dnf remove mysql-client-5.5 -y  
+	dnf remove mysql-client-5.6 -y  
+	dnf remove mysql-client-5.7 -y  
+	dnf remove mysql-server-core-5.6 -y  
 	# "ms-sql-s, ms-sql-m, mysql, and mysql-proxy ports have been denied on the firewall. MySQL has been removed."
 elif [ $dbYN == yes ]
 then
@@ -314,8 +312,8 @@ then
 	ufw allow ms-sql-m 
 	ufw allow mysql 
 	ufw allow mysql-proxy
-	apt-get install sqlcipher -y  
-	apt-get install mysql-server-5.7 -y  
+	dnf install sqlcipher -y  
+	dnf install mysql-server-5.7 -y  
 	cp /etc/my.cnf backups/services/
 	cp -ar /etc/mysql/ backups/services/
 	cp /usr/etc/my.cnf backups/services/
@@ -339,26 +337,28 @@ if [ $httpYN == no ]
 then
 	#ufw deny http
 	#ufw deny https
-	apt-get purge nginx -y  
-	apt-get purge unicorn -y  
-	apt-get purge apache -y  
-	apt-get purge apache2 -y
+	dnf remove nginx -y  
+	dnf remove unicorn -y  
+	dnf remove apache -y  
+	dnf remove apache2 -y
 	mkdir backups/services/http/
 	cp -ar /var/www/* backups/services/http/
+	cp -ar /srv/* backups/services/http/
 	rm -r /var/www/*
 	# "http and https ports have been denied on the firewall. Apache & Apache2 has been removed. Web server files have been removed."
 elif [ $httpYN == yes ]
 then
-	apt-get install apache2 -y  
-	apt-get install apache2-utils -y  
-	apt-get install libapache2-mod-security2 -y  
-	apt-get install libapache2-mod-evasive
+	dnf install apache2 -y  
+	dnf install apache2-utils -y  
+	dnf install libapache2-mod-security2 -y  
+	dnf install libapache2-mod-evasive
 	apt install install mod_security -y
 	systemctl enable apache2
 	ufw allow http 
 	ufw allow https
 	mkdir backups/services/http/
 	cp -ar /var/www/* backups/services/http/
+	cp -ar /srv/ backups/services/http/
 	#if [ -e /etc/apache2/apache2.conf ]
 	#then
   	#  echo -e '\<Directory \>\n\t AllowOverride None\n\t Order Deny,Allow\n\t Deny from all\n\<Directory \/\>\nUserDir disabled root' >> /etc/apache2/apache2.conf
@@ -374,24 +374,24 @@ fi
 if [ $RemoteDesktopYN == no ]
 then
 	ufw deny 3389
-	apt-get purge vinagre -y  
-	apt-get purge remmina -y  
-	apt-get purge remmina-plugin-rdp -y  
-	apt-get purge remmina-plugin-vnc -y  
-	apt-get purge remmina-plugin-telepathy
-	apt-get purge remmina-plugin-xdmcp -y  
-	apt-get purge remmina-plugin-nx -y  
-	apt-get purge remmina-plugin-gnome -y  
-	apt-get purge remmina-common -y  
-	apt-get purge rsync -y   
-	apt-get purge unity-scope-video-remote -y  
-	apt-get purge gdbserver -y  
-	apt-get purge vino -y  
+	dnf remove vinagre -y  
+	dnf remove remmina -y  
+	dnf remove remmina-plugin-rdp -y  
+	dnf remove remmina-plugin-vnc -y  
+	dnf remove remmina-plugin-telepathy
+	dnf remove remmina-plugin-xdmcp -y  
+	dnf remove remmina-plugin-nx -y  
+	dnf remove remmina-plugin-gnome -y  
+	dnf remove remmina-common -y  
+	dnf remove rsync -y   
+	dnf remove unity-scope-video-remote -y  
+	dnf remove gdbserver -y  
+	dnf remove vino -y  
 	# "Remote Desktop Ports have been denied. Vinagre, Remmina, rsync, unity-scope-video-remote, and gsbserver Programs have been Removed."
 elif [ $RemoteDesktopYN == yes ]
 then
 	ufw allow 3389
-	apt-get install vinagre  
+	#dnf install vinagre  
 	# "Remote Desktop port was allowed. Vinagre has been Installed."
 else
 	echo "Response not recognized."
@@ -401,15 +401,15 @@ fi
 
 if [ $FirefoxYN == no ]
 then
-	apt-get remove firefox 
+	echo bruh
 elif [ $FirefoxYN == yes ]
 then
 	echo -e "Make Sure Firefox Is Not Running During Update."
 	read Firefox_input
-	sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
-	apt-get update -y  
+	#sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
+	#dnf update -y  
 	#
-	apt-get install firefox -y  
+	dnf install firefox -y  
 	echo -e "Firefox will open automatically. Make Sure to Set Mozilla Firefox"
 	echo -e "Do The Security Browser Settings and Come Back to the Script after you are Done."
 	echo -e "Press Enter to Continue."
@@ -451,13 +451,12 @@ clear
 #	# "IPv6 has been disabled."
 #fi
 
-apt-get autoremove -y
 #Last Stand
 #clear
 #if [ $dnsYN == no ]
 #then
 #	ufw deny domain
-#	apt-get purge bind9  
+#	dnf remove bind9  
 #	# "domain port has been denied on the firewall. DNS name binding has been removed."
 #elif [ $dnsYN == yes ]
 #then
