@@ -51,7 +51,7 @@ def backups():
     o("cp -r /etc/sudoers.d/ backups/important")
     o("cp /etc/login.defs backups/important")
     o("cp -ar /etc/lightdm/ backups/important")
-    o("cp -ar /etc/")
+    o("cp -ar /etc/ backups/")
     printTime("Backups Are Finished & Stored in backups/.\n")
     
 
