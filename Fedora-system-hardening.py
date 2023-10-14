@@ -58,9 +58,9 @@ def backups():
 def account_policies():
     cls
     #Installing Libpam modules
-    o("apt update")
-    o("apt install libpam-cracklib libcrack2 -y")
-    printTime("Automatic Account Policies Deployed.")
+    #o("apr update")
+    #o("apt install libpam-cracklib libcrack2 libpam-pwquality -y")
+    #printTime("Automatic Account Policies Deployed.")
     print("""
     Get Ready to edit /etc/login.defs to the following:
     PASS_MAX_DAYS  90
@@ -69,9 +69,9 @@ def account_policies():
     """)
     input("Press Enter to Continue.")
     o("nano /etc/login.defs")
-    o("echo 'auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800' >> /etc/pam.d/common-auth")
-    o("sed -i 's/\(pam_unix\.so.*\)$/\1 remember=5 minlen=8/' /etc/pam.d/common-password")
-    o("sed -i 's/\(pam_cracklib\.so.*\)$/\1 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1/' /etc/pam.d/common-password")
+    #o("echo 'auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800' >> /etc/pam.d/common-auth")
+    #o("sed -i 's/\(pam_unix\.so.*\)$/\1 remember=5 minlen=8/' /etc/pam.d/common-password")
+    #o("sed -i 's/\(pam_cracklib\.so.*\)$/\1 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1/' /etc/pam.d/common-password")
 
 def pamd_scan():
     cls
@@ -223,27 +223,26 @@ def user_auditing():
 
 def updates():
     cls
-    o("apt update")
-    o("apt upgrade -y")
-    o("apt dist-upgrade -y")
+    o("sudo dnf clean all")
+    o("dnf makecache --refresh")
+    o("sudo dnf upgrade -y")
+    o("sudo dnf distro-sync -y")
     o("apt autoremove -y")
     printTime("Operating System Updates")
     input("Close Firefox To Apply Updates. Press Enter to Continue: ")
-    o("add-apt-repository ppa:ubuntu-mozilla-security/ppa")
-    o("apt update")
-    o("apt-get install firefox -y")
-    printTime("Firefox Update")
+    o("sudo dnf clean all")
+    o("sudo dnf update firefox -y")
+    printTime("Firefox Updated")
 
 def defensive_countermeasures():
     cls
-    o("apt install ufw -y")
+    o("dnf install ufw -y")
     o("ufw enable")
     o("ufw logging high")
     o("ufw deny 1234")
     o("ufw deny 1337")
     printTime("Firewall is Enabled with High Logging")
-    o("apt update")
-    o("apt install chkrootkit clamav rkhunter apparmor apparmor-profiles apparmor-profiles-extra apparmor-notify lynis fail2ban modsecurity-crs debsecan unattended-upgrades aide arpwatch logwatch clamav-freshclam libpam-shield -y")
+    o("dnf install chkrootkit clamav rkhunter lynis fail2ban modsecurity-crs debsecan unattended-upgrades aide arpwatch logwatch clamav-freshclam -y")
     o("systemctl start clamav-freshclam")
     printTime("Installed Defensive Countermeasure Programs Like Anti-Malware")
 
@@ -276,8 +275,8 @@ def vuln_scan():
 
 def logging_auditing():
     cls
-    o("apt update")
-    o("apt install auditd rsyslog audispd-plugins -y")
+    o("dnf makecache --refresh")
+    o("dnf install audit rsyslog audispd-plugins -y")
     o("systemctl enable rsyslog")
     o("systemctl start rsyslog")
     o("cp external_files/audit.rules /etc/auditd/rules.d/")
@@ -286,10 +285,10 @@ def logging_auditing():
 
 def service_mangement():
     cls
-    o("bash external_files/Manage_Services.sh")
+    o("bash external_files/Fedora_Manage_Services.sh")
 
 def remove_bad_programs():
-    o("bash external_scripts/Remove_Bad_Programs.sh")
+    o("bash external_scripts/Fedora_Remove_Bad_Programs.sh")
     printTime("Removed Bad Programs..")
     cls
 
@@ -342,8 +341,10 @@ def remove_malware():
 
     service_input = input("Do you have a web server as a critical service?")
     if service_input == "yes":
+        o("dnf install git -y")
         o("git clone https://github.com/tinwaninja/Simple-Backdoor-Scanner-PHP.git")
         o("cp Simple-Backoor-Scanner-PHP/scanner.php /var/www/html/")
+        o("cp Simple-Backoor-Scanner-PHP/scanner.php /va")
         o("firefox --new-window http://127.0.0.1/scanner.php")
 
 def uncatorigized():
@@ -374,12 +375,12 @@ def start_menu():
 █████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗
 ╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝
 
-        ██    ██ ██████  ██    ██ ███    ██ ████████ ██    ██
-        ██    ██ ██   ██ ██    ██ ████   ██    ██    ██    ██
-        ██    ██ ██████  ██    ██ ██ ██  ██    ██    ██    ██
-        ██    ██ ██   ██ ██    ██ ██  ██ ██    ██    ██    ██
-         ██████  ██████   ██████  ██   ████    ██     ██████
-
+            ███████ ███████ ██████   ██████  ██████   █████  
+            ██      ██      ██   ██ ██    ██ ██   ██ ██   ██ 
+            █████   █████   ██   ██ ██    ██ ██████  ███████ 
+            ██      ██      ██   ██ ██    ██ ██   ██ ██   ██ 
+            ██      ███████ ██████   ██████  ██   ██ ██   ██ 
+                                                 
                     Created By: Diego Cruz
 █████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗
 ╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝
