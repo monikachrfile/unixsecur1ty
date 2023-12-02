@@ -29,8 +29,8 @@ cp -ar /var/www/ .backups/web/
 cp -ar /srv/ .backups/web/
 cp -ar /var/log/ .backups/log/
 
-sudo apt install zip unzip -y
-dnf install zip -y
+sudo apt install zip unzip
+dnf install zip
 sudo yum install zip
 sudo pacman -S zip
 apk add zip
