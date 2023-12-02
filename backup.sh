@@ -28,7 +28,6 @@ cp -ar /home/ .backups/home/
 cp -ar /var/www/ .backups/web/
 cp -ar /srv/ .backups/web/
 cp -ar /var/log/ .backups/log/
-cp ~/inventory.txt .backups/
 
 sudo apt install zip unzip -y
 dnf install zip -y
