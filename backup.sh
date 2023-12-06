@@ -36,4 +36,4 @@ sudo pacman -S zip
 apk add zip
 sudo pkg install zip
 
-zip blackteam.zip .backups/
+zip blackteam.zip -r .backups/
