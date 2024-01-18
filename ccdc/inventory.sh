@@ -170,7 +170,7 @@ while read -r line; do
     fi
 done <<< "$listening_ports"
 
-echo "\n[+] More Info on ports:" | tee -a $FILE
+echo "[+] More Info on ports:" | tee -a $FILE
 if [ $(command -v ss) ]; then
     ss -lnptu | tee -a $FILE
 elif [ $(command -v netstat) ]; then
