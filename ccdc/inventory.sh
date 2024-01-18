@@ -1,8 +1,9 @@
 #!/bin/bash
+# Get the hostname
+hostname=$(hostname)
+#set -e
 
-set -e
-
-FILE="inventory.txt"
+FILE="$hostname_inventory.txt"
 # Clear the output file
 > "$FILE"
 # Get OS info
