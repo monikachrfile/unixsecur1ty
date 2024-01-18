@@ -158,7 +158,7 @@ listening_ports=$(netstat -tulpn | grep "LISTEN")
 declare -A services
 
 # Loop through the listening ports and display their corresponding services
-echo "[+] Inventory Ports & Services to Copy For Inventory Sheet: " | tee -a $FILE
+echo "--- Inventory Ports & Services to Copy For Inventory Sheet: ---" | tee -a $FILE
 while read -r line; do
     port=$(echo "$line" | awk '{print $4}' | awk -F ':' '{print $NF}')
     service_name=$(echo "$line" | awk '{print $7}' | awk -F'/' '{print $2}')
@@ -170,7 +170,7 @@ while read -r line; do
     fi
 done <<< "$listening_ports"
 
-echo "[+] More Info on ports:" | tee -a $FILE
+echo "\n[+] More Info on ports:" | tee -a $FILE
 if [ $(command -v ss) ]; then
     ss -lnptu | tee -a $FILE
 elif [ $(command -v netstat) ]; then
