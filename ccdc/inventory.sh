@@ -265,7 +265,8 @@ echo "$SUIDS\n" | tee -a $FILE
 
 WORLDWRITEABLES=$( DPRINT find /usr /bin/ /sbin /var/www /lib -perm -o=w -type f -exec ls {} -la \; )
 echo "[+] World Writable Files (CHANGE PERMS)" | tee -a $FILE
-echo "$WORLDWRITEABLES\n"
+echo "$WORLDWRITEABLES"
+echo ""
 
 #Check service stuff:
 if checkService "$SERVICES"  'ssh' | grep -qi "is on this machine"; then checkService "$SERVICES"  'ssh' ; SSH=true ;fi | tee -a $FILE
@@ -482,6 +483,7 @@ get_storage_info() {
 }
 
 # Display information for RAM, CPU, and storage
+echo ""
 echo "[+] Hardware (Place as Extra Notes if No Hardware Section on Exel Sheet): " | tee -a $FILE
 get_ram_info
 get_cpu_info
