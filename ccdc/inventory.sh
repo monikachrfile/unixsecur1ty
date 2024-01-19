@@ -169,8 +169,8 @@ while read -r line; do
         echo " $port (unknown), " | tee -a $FILE
     fi
 done <<< "$listening_ports"
-
-echo -e "[+] More Info on ports:" | tee -a $FILE
+echo ""
+echo "[+] More Info on ports:" | tee -a $FILE
 if [ $(command -v ss) ]; then
     ss -lnptu | tee -a $FILE
 elif [ $(command -v netstat) ]; then
