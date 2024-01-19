@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Get the hostname
+hostname=$(hostname)
+#set -e
+
+FILE=$hostname"_inventory.txt"
+# Clear the output file
+> "$FILE"
+
 IS_RHEL=false
 IS_DEBIAN=false
 IS_ALPINE=false
@@ -99,12 +107,12 @@ checkService()
 }
 
 # Get the hostname
-hostname=$(hostname)
+#hostname=$(hostname)
 #set -e
 
-FILE="$hostname_inventory.txt"
+#FILE="$hostname_inventory.txt"
 # Clear the output file
-> "$FILE"
+#> "$FILE"
 # Get OS info
 echo "[+] Getting OS Info: " | tee -a $FILE
 if [ $(command -v hostnamectl) ]; then
