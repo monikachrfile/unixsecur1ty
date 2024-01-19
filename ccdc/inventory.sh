@@ -499,3 +499,6 @@ get_storage_info
 
 echo
 echo "Done! Wrote to $FILE"
+
+chmod 440 $FILE
+chmod 440 *inventory.txt
