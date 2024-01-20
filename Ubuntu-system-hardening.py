@@ -173,7 +173,7 @@ def user_auditing():
                         print_time("{} has been made an administrator.".format(user))
                         change_pass()
                         o("passwd -x90 -n5 -w7 {}".format(user))
-                        printTime("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days. {}'s account has been locked.".format(user,user))
+                        printTime("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days.".format(user,user))
                         break
                     if yn2 == "no":
                         o("gpasswd -d {} sudo".format(user))
@@ -184,7 +184,7 @@ def user_auditing():
                         printTime("{} has been made a standard user.".format(user))
                         change_pass()
                         o("passwd -x90 -n5 -w7 {}".format(user))
-                        printTime("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days. {}'s account has been locked.".format(user,user))
+                        printTime("{}'s password has been given a maximum age of 90 days, minimum of 5 days, and warning of 7 days.".format(user,user))
                         break
                     else:
                         print("ERROR: NOT AN OPTION. \nOnly type yes or no")
