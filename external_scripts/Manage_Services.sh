@@ -12,7 +12,7 @@ echo -n Are you ready??
 read warning2
 
 mkdir backups/services/
-touch backup/services/Manage_Services.log
+touch backups/services/Manage_Services.log
 echo > backups/services/Manage_Services.log
 chmod 777 backups/services/Manage_Services.log
 
