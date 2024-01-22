@@ -282,7 +282,7 @@ def logging_auditing():
     o("apt install auditd rsyslog audispd-plugins -y")
     o("systemctl enable rsyslog")
     o("systemctl start rsyslog")
-    o("cp external_files/audit.rules /etc/auditd/rules.d/")
+    o("cp external_files/audit.rules /etc/audit/rules.d/")
     o("auditctl -e 1")
     o("systemctl start auditd")
     printTime("Auditd has been installed, running, and configured")
