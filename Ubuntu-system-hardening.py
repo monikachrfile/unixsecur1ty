@@ -289,7 +289,7 @@ def logging_auditing():
 
 def service_mangement():
     cls
-    o("bash external_files/Manage_Services.sh")
+    o("bash external_scripts/Manage_Services.sh")
 
 def remove_bad_programs():
     o("bash external_scripts/Remove_Bad_Programs.sh")
