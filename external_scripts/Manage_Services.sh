@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-echo "Modified and Created by Diego Cruz John H Francis Polytechnigh High, CA, USA."
+echo "Modified and Created by Diego, Polytechnigh High"
 #echo "Last Modified on Wednesday, Janurary 8th, 2021"
 echo "This is the Linux/Ubuntu Cyberpatriot Service Management Script."
 echo -e "This Script will Manage Services on Local Machine By: \nDeleting Unneeded Services, \nEnforcing and Securing Needed Services, \nAnd Blocking Service Ports."
